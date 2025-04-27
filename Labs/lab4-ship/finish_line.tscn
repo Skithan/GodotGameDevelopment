@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccht2g1qh7dcj"]
+
+[ext_resource type="Texture2D" uid="uid://oklob34dp7wi" path="res://360_F_370539127_zcUHQTNUaGbyEMeaexk5UiuPT0NLgjeW.jpg" id="1_gpccu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyo2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ip2si"]
+albedo_texture = ExtResource("1_gpccu")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7caub"]
+material = SubResource("StandardMaterial3D_ip2si")
+size = Vector3(50, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cm7yc"]
+size = Vector3(50, 115.577, 1)
+
+[node name="FinishLine" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["Finish"]]
+physics_material_override = SubResource("PhysicsMaterial_bfyo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_7caub")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0193939, 57.2884, 0)
+shape = SubResource("BoxShape3D_cm7yc")
+disabled = true

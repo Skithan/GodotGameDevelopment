@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b41wrawdkkrdu"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dxtvl2ff0fhiw" path="res://mats/playerPhysMat.tres" id="1_lo1sj"]
+[ext_resource type="Script" path="res://playerController.gd" id="1_n0a34"]
+[ext_resource type="Material" uid="uid://dkl3spaer3nob" path="res://mats/playerMat.tres" id="2_mk7yx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ws45b"]
+material = ExtResource("2_mk7yx")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xevag"]
+radius = 1.0
+
+[node name="player" type="RigidBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+physics_material_override = ExtResource("1_lo1sj")
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 100
+script = ExtResource("1_n0a34")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ws45b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xevag")

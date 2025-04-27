@@ -1,0 +1,204 @@
+[gd_scene load_steps=17 format=3 uid="uid://buys6qb2gkkfu"]
+
+[ext_resource type="PackedScene" uid="uid://cc86yukc3s86h" path="res://jet.tscn" id="1_27qbb"]
+[ext_resource type="Script" path="res://main.gd" id="1_cclg1"]
+[ext_resource type="Script" path="res://jet.gd" id="2_r7ta4"]
+[ext_resource type="Environment" uid="uid://b27xaheblmaon" path="res://ambientRed.tres" id="4_skerj"]
+[ext_resource type="PackedScene" uid="uid://bfkvn2ltckg1f" path="res://obstacle_but_better.tscn" id="5_kmhyb"]
+[ext_resource type="Script" path="res://timer.gd" id="6_ri7gi"]
+[ext_resource type="Script" path="res://display.gd" id="7_77pev"]
+[ext_resource type="PackedScene" uid="uid://hh5k4ko28ygw" path="res://check_point.tscn" id="8_1qi7u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hufub"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d8xvg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tm0i4"]
+noise = SubResource("FastNoiseLite_d8xvg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72dxf"]
+albedo_color = Color(0.0400384, 0.219404, 0.315317, 1)
+roughness_texture = SubResource("NoiseTexture2D_tm0i4")
+
+[sub_resource type="BoxMesh" id="BoxMesh_746fd"]
+material = SubResource("StandardMaterial3D_72dxf")
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5flk"]
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwjjq"]
+bg_color = Color(0.362829, 0.362829, 0.362829, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="GDScript" id="GDScript_2xqs0"]
+script/source = "extends SpotLight3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_cclg1")
+
+[node name="jet" parent="." instance=ExtResource("1_27qbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("2_r7ta4")
+
+[node name="Camera3D" type="Camera3D" parent="jet"]
+transform = Transform3D(-1, 1.48438e-08, 1.45832e-07, 2.18487e-08, 0.99884, 0.0481518, -1.44948e-07, 0.0481518, -0.99884, -4.37114e-08, 0, -4.5)
+environment = ExtResource("4_skerj")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_hufub")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_746fd")
+
+[node name="DebugCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0345332, 0.999404, 0, -0.999404, -0.0345332, 0, 63.304, 0)
+
+[node name="ObstacleButBetter" parent="." instance=ExtResource("5_kmhyb")]
+transform = Transform3D(0.707107, 0.183013, 0.683013, 0, 0.965926, -0.258819, -0.707107, 0.183013, 0.683013, 29.75, 0.6, 26)
+
+[node name="ObstacleButBetter2" parent="." instance=ExtResource("5_kmhyb")]
+transform = Transform3D(-0.707107, 0.183013, 0.683013, 0, 0.965926, -0.258819, -0.707107, -0.183013, -0.683013, -30, 0.25, 27)
+
+[node name="ObstacleButBetter3" parent="." instance=ExtResource("5_kmhyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -40)
+
+[node name="checkPoint" parent="." instance=ExtResource("8_1qi7u")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 29, 0, 27)
+
+[node name="checkPoint2" parent="." instance=ExtResource("8_1qi7u")]
+transform = Transform3D(0.728526, 0, 0.685018, 0, 1, 0, -0.685018, 0, 0.728526, -31.2872, 0.25, 25.4788)
+
+[node name="checkPoint3" parent="." instance=ExtResource("8_1qi7u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, -40)
+
+[node name="Timer" type="Timer" parent="."]
+script = ExtResource("6_ri7gi")
+
+[node name="Display" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -582.5
+offset_top = -329.5
+offset_right = 582.5
+offset_bottom = 329.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_77pev")
+
+[node name="Label" type="Label" parent="Display"]
+layout_mode = 0
+offset_left = 17.5
+offset_top = 9.5
+offset_right = 209.5
+offset_bottom = 51.5
+theme_override_font_sizes/font_size = 30
+text = "Time Left 30s"
+
+[node name="ObstaclesLeftLabel" type="Label" parent="Display"]
+layout_mode = 0
+offset_left = 16.5
+offset_top = 53.5
+offset_right = 254.5
+offset_bottom = 95.5
+theme_override_font_sizes/font_size = 30
+text = "Obstacles Left: 3"
+
+[node name="LapsDoneLabel" type="Label" parent="Display"]
+offset_left = 16.5
+offset_top = 91.5
+offset_right = 282.5
+offset_bottom = 133.5
+theme_override_font_sizes/font_size = 30
+text = "Laps Completed: 0"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Display"]
+layout_mode = 0
+offset_left = 18.5
+offset_top = 149.5
+offset_right = 275.5
+offset_bottom = 283.5
+theme_override_styles/normal = SubResource("StyleBoxFlat_c5flk")
+bbcode_enabled = true
+text = "Game Chat :) "
+scroll_following = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Display"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = -94.0
+offset_right = 222.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hwjjq")
+
+[node name="Label" type="Label" parent="Display/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "You ran out of time, press r to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="finishLine" parent="." instance=ExtResource("8_1qi7u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 25)
+light_color = Color(0.0891706, 0.89597, 6.16074e-06, 1)
+light_energy = 10.0
+omni_range = 36.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 42, 24, 4)
+light_color = Color(0, 0.698039, 0.952941, 1)
+light_energy = 20.0
+spot_range = 50.0
+spot_angle = 10.0
+script = SubResource("GDScript_2xqs0")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

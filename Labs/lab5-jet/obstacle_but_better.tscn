@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfkvn2ltckg1f"]
+
+[ext_resource type="Script" path="res://obstacle.gd" id="1_ddiy1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3k66"]
+size = Vector3(1, 1, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oemas"]
+size = Vector3(1, 1, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqh4j"]
+size = Vector3(1, 2.49, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hbayq"]
+size = Vector3(1, 2.49, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_itq0t"]
+size = Vector3(1, 2.49, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a4yfe"]
+size = Vector3(1, 2.49, 1)
+
+[node name="ObstacleButBetter" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+script = ExtResource("1_ddiy1")
+
+[node name="BottomBar" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BottomBar"]
+shape = SubResource("BoxShape3D_n3k66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BottomBar"]
+mesh = SubResource("BoxMesh_oemas")
+
+[node name="TopBar" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TopBar"]
+shape = SubResource("BoxShape3D_n3k66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TopBar"]
+mesh = SubResource("BoxMesh_oemas")
+
+[node name="LeftBar" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 2.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftBar"]
+shape = SubResource("BoxShape3D_qqh4j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftBar"]
+mesh = SubResource("BoxMesh_hbayq")
+
+[node name="RightBar" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -2.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightBar"]
+shape = SubResource("BoxShape3D_itq0t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightBar"]
+mesh = SubResource("BoxMesh_a4yfe")
+
+[connection signal="area_entered" from="BottomBar" to="." method="_on_bottom_bar_area_entered"]
+[connection signal="area_exited" from="BottomBar" to="." method="_on_bottom_bar_area_exited"]
+[connection signal="area_entered" from="TopBar" to="." method="_on_top_bar_area_entered"]
+[connection signal="area_exited" from="TopBar" to="." method="_on_top_bar_area_exited"]
+[connection signal="area_entered" from="LeftBar" to="." method="_on_left_bar_area_entered"]
+[connection signal="area_exited" from="LeftBar" to="." method="_on_left_bar_area_exited"]
+[connection signal="area_entered" from="RightBar" to="." method="_on_right_bar_area_entered"]
+[connection signal="area_exited" from="RightBar" to="." method="_on_right_bar_area_exited"]

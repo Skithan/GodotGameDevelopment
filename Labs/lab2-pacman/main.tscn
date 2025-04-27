@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://vavvtni5i31e"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_5r2v4"]
+[ext_resource type="PackedScene" uid="uid://bltps6sllc8e1" path="res://Player.tscn" id="2_75gq7"]
+[ext_resource type="PackedScene" uid="uid://bahjw3mb3dsfo" path="res://Ghost.tscn" id="2_phi3g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0avtv"]
+size = Vector2(642, 479)
+
+[sub_resource type="Gradient" id="Gradient_rqehs"]
+offsets = PackedFloat32Array(0.0443038, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x07gb"]
+gradient = SubResource("Gradient_rqehs")
+width = 640
+height = 480
+
+[sub_resource type="GDScript" id="GDScript_p4k0d"]
+script/source = "extends Label
+#var score
+#
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	#score = 0
+	#text = \"Score: %s\" %score
+#
+#func _on_ghost_caught():
+	#score += 1
+	#text = \"Score: %s\" % score
+"
+
+[sub_resource type="Gradient" id="Gradient_21q6i"]
+offsets = PackedFloat32Array(0.454545)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qhlod"]
+gradient = SubResource("Gradient_21q6i")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_5r2v4")
+GhostTemplate = ExtResource("2_phi3g")
+PlayerTemplate = ExtResource("2_75gq7")
+
+[node name="Background" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background"]
+position = Vector2(320, 240)
+shape = SubResource("RectangleShape2D_0avtv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(-1, -1)
+texture = SubResource("GradientTexture2D_x07gb")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 480)
+
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Score" type="Label" parent="."]
+offset_right = 320.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 20
+script = SubResource("GDScript_p4k0d")
+
+[node name="GameOverScreen" type="NinePatchRect" parent="."]
+offset_right = 636.0
+offset_bottom = 481.0
+
+[node name="Gameover" type="Sprite2D" parent="GameOverScreen"]
+position = Vector2(319, 242)
+scale = Vector2(1.88672, 390.25)
+texture = SubResource("GradientTexture1D_qhlod")
+
+[node name="Gameovermessage" type="Label" parent="GameOverScreen"]
+offset_left = 213.0
+offset_top = 141.0
+offset_right = 430.0
+offset_bottom = 196.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+
+[node name="NewGame" type="Button" parent="GameOverScreen"]
+offset_left = 251.0
+offset_top = 215.0
+offset_right = 382.0
+offset_bottom = 286.0
+text = "New Game"
+
+[connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="pressed" from="GameOverScreen/NewGame" to="." method="_on_new_game_pressed"]

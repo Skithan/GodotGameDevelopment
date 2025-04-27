@@ -1,0 +1,110 @@
+[gd_scene load_steps=11 format=3 uid="uid://4djeh3ybr5w7"]
+
+[ext_resource type="Material" uid="uid://bfis8w1qqfi0y" path="res://newGroundMaterial.material" id="1_3d7s7"]
+[ext_resource type="Script" path="res://main.gd" id="1_48p3c"]
+[ext_resource type="PackedScene" uid="uid://wrypyieq4mob" path="res://player.tscn" id="2_s7ey5"]
+[ext_resource type="PackedScene" uid="uid://b8prc72yjwpon" path="res://obstacle_1.tscn" id="4_j1iys"]
+[ext_resource type="PackedScene" uid="uid://by4olydjhxh6n" path="res://obstacle_2.tscn" id="5_e1kj7"]
+[ext_resource type="PackedScene" uid="uid://c6iytb0ipl41h" path="res://obstacle_3.tscn" id="6_qrjwt"]
+[ext_resource type="PackedScene" uid="uid://ccht2g1qh7dcj" path="res://finish_line.tscn" id="7_0o762"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_34hnb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rjgvc"]
+material = ExtResource("1_3d7s7")
+size = Vector3(50, 1, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m5b2m"]
+size = Vector3(49.7113, 1, 492)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_48p3c")
+
+[node name="Ground" type="StaticBody3D" parent="." groups=["Ground"]]
+physics_material_override = SubResource("PhysicsMaterial_34hnb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_rjgvc")
+surface_material_override/0 = ExtResource("1_3d7s7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -0.0668411, -2.2338e-07, -2.55518)
+shape = SubResource("BoxShape3D_m5b2m")
+
+[node name="FlyingCraft" parent="." groups=["Ship"] instance=ExtResource("2_s7ey5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Camera3D" type="Camera3D" parent="FlyingCraft"]
+transform = Transform3D(1, 0, 0, 0, 0.854386, 0.519638, 0, -0.519638, 0.854386, 0, 5.78232, 10.0287)
+
+[node name="Label3D" type="Label3D" parent="FlyingCraft/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3.46496, -4.91518)
+text = "Obstacles Remaining: #"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.719473, 0.694521, 0, -0.694521, 0.719473, 0, 72, 23)
+light_energy = 2.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -454.0
+offset_top = -212.0
+offset_right = 454.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.629675, 0.629675, 0.629675, 1)
+
+[node name="Win" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -21.0
+offset_right = 189.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "You Win! Press r to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lose" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.5
+offset_top = -21.0
+offset_right = 191.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "You Lost, Press r to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Obstacle1" parent="." instance=ExtResource("4_j1iys")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -25)
+
+[node name="Obstacle2" parent="." instance=ExtResource("5_e1kj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -75)
+
+[node name="Obstacle3" parent="." instance=ExtResource("6_qrjwt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -125)
+
+[node name="FinishLine" parent="." instance=ExtResource("7_0o762")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -150)

@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://djsiv22jo8uoo"]
+
+[ext_resource type="Script" path="res://mario.gd" id="1_aa034"]
+[ext_resource type="Texture2D" uid="uid://dqfocip8mj538" path="res://smb_mario_sheet.png" id="1_rijrk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbrrc"]
+atlas = ExtResource("1_rijrk")
+region = Rect2(330, 85, 25, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j66jp"]
+atlas = ExtResource("1_rijrk")
+region = Rect2(235, 51, 30, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbp3f"]
+atlas = ExtResource("1_rijrk")
+region = Rect2(265, 51, 30, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prvri"]
+atlas = ExtResource("1_rijrk")
+region = Rect2(295, 51, 30, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylktg"]
+atlas = ExtResource("1_rijrk")
+region = Rect2(205, 51, 25, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8mpwm"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbrrc")
+}],
+"loop": true,
+"name": &"jumping-right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j66jp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbp3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prvri")
+}],
+"loop": false,
+"name": &"running-right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylktg")
+}],
+"loop": true,
+"name": &"standing-right",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjg0f"]
+size = Vector2(18, 32)
+
+[node name="Mario" type="CharacterBody2D"]
+script = ExtResource("1_aa034")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, 1)
+sprite_frames = SubResource("SpriteFrames_8mpwm")
+animation = &"running-right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_sjg0f")

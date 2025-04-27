@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://wrypyieq4mob"]
+
+[ext_resource type="PackedScene" uid="uid://dj41k4g3prf32" path="res://ShipModel.tscn" id="1_vy632"]
+[ext_resource type="Script" path="res://FlyingCraftController.gd" id="1_x3n7r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tep78"]
+size = Vector3(4.83505, 2.54774, 8.11343)
+
+[node name="FlyingCraft" type="CharacterBody3D"]
+script = ExtResource("1_x3n7r")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="ship" parent="Pivot" instance=ExtResource("1_vy632")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0283837, 0.277027, 1.33178)
+shape = SubResource("BoxShape3D_tep78")

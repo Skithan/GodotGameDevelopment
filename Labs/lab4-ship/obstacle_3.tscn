@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6iytb0ipl41h"]
+
+[ext_resource type="Material" uid="uid://b4dtosmj8us1b" path="res://obstacleColour1.tres" id="1_mylan"]
+[ext_resource type="Script" path="res://obstacle_3.gd" id="1_v4u54"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_st4sc"]
+size = Vector3(11.5, 6.5, 1)
+
+[node name="Obstacle3" type="Node3D"]
+script = ExtResource("1_v4u54")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." groups=["Obstacle3Post", "ObstaclePost"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+use_collision = true
+size = Vector3(3, 10, 3)
+material = ExtResource("1_mylan")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." groups=["Obstacle3Post", "ObstaclePost"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 0)
+use_collision = true
+size = Vector3(18, 3, 3)
+material = ExtResource("1_mylan")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." groups=["Obstacle3Post", "ObstaclePost"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 8, 0)
+use_collision = true
+size = Vector3(3, 10, 3)
+material = ExtResource("1_mylan")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." groups=["Obstacle3Post", "ObstaclePost"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 11.5, 0)
+use_collision = true
+size = Vector3(18, 3, 3)
+material = ExtResource("1_mylan")
+
+[node name="Area3D" type="Area3D" parent="." groups=["Obstacle3"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.47907, 6.55358, 0)
+shape = SubResource("BoxShape3D_st4sc")
+disabled = true
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

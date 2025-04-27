@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj41k4g3prf32"]
+
+[ext_resource type="PackedScene" uid="uid://pqdty2opxuc6" path="res://ship.gltf" id="1_h2sj3"]
+[ext_resource type="Texture2D" uid="uid://dpcsob8nwkhep" path="res://ship_diffuse.tga" id="2_dohsb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqe56"]
+albedo_texture = ExtResource("2_dohsb")
+
+[node name="ship" instance=ExtResource("1_h2sj3")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="p1_wedge_geo1" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_bqe56")

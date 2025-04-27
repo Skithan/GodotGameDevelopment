@@ -1,0 +1,167 @@
+[gd_scene load_steps=14 format=3 uid="uid://p2sg2eatmier"]
+
+[ext_resource type="Material" uid="uid://cify25658hyp0" path="res://mats/ground.tres" id="1_3ga58"]
+[ext_resource type="PackedScene" uid="uid://0jedw2wfdl5w" path="res://ball.tscn" id="2_4cka7"]
+[ext_resource type="PhysicsMaterial" uid="uid://b3gk5yjp3tuc1" path="res://mats/wallMat.tres" id="3_5q41n"]
+[ext_resource type="PackedScene" uid="uid://b41wrawdkkrdu" path="res://player.tscn" id="4_02i6s"]
+[ext_resource type="Script" path="res://cameraController.gd" id="5_ecwym"]
+[ext_resource type="Script" path="res://follow_camera.gd" id="6_41tnr"]
+[ext_resource type="Script" path="res://spring_camera.gd" id="7_pb3m5"]
+[ext_resource type="Script" path="res://orbit_camera.gd" id="8_05iwa"]
+[ext_resource type="Script" path="res://first_person_camera.gd" id="9_y8y8l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ww7i"]
+material = ExtResource("1_3ga58")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epoec"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uqbih"]
+size = Vector3(25, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6dd2"]
+size = Vector3(25, 5, 1)
+
+[node name="main" type="Node3D"]
+
+[node name="ground" type="StaticBody3D" parent="." groups=["ground"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+mesh = SubResource("BoxMesh_8ww7i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+shape = SubResource("BoxShape3D_epoec")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 100, 0)
+light_color = Color(0.999999, 0.997402, 0.807205, 1)
+
+[node name="player" parent="." instance=ExtResource("4_02i6s")]
+
+[node name="walls" type="Node" parent="."]
+
+[node name="wall1" type="StaticBody3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30, 2.5, 0)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall1"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall1"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall2" type="StaticBody3D" parent="walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -30, 2.5, 0)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall2"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall2"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall3" type="StaticBody3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 30)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall3"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall3"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall4" type="StaticBody3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -30)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall4"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall4"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall5" type="StaticBody3D" parent="walls"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -21, 2.5, -21)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall5"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall5"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall6" type="StaticBody3D" parent="walls"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 21, 2.5, -21)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall6"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall6"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall7" type="StaticBody3D" parent="walls"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -21, 2.5, 21)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall7"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall7"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="wall8" type="StaticBody3D" parent="walls"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 21, 2.5, 21)
+physics_material_override = ExtResource("3_5q41n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="walls/wall8"]
+mesh = SubResource("BoxMesh_uqbih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls/wall8"]
+shape = SubResource("BoxShape3D_v6dd2")
+
+[node name="balls" type="Node" parent="."]
+
+[node name="ball" parent="balls" instance=ExtResource("2_4cka7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="ball2" parent="balls" instance=ExtResource("2_4cka7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="ball3" parent="balls" instance=ExtResource("2_4cka7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="ball4" parent="balls" instance=ExtResource("2_4cka7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="cameras" type="Node" parent="." node_paths=PackedStringArray("staticCamera", "followCamera", "springCamera", "orbitCamera", "firstPersonCamera")]
+script = ExtResource("5_ecwym")
+staticCamera = NodePath("StaticCamera")
+followCamera = NodePath("FollowCamera")
+springCamera = NodePath("SpringCamera")
+orbitCamera = NodePath("OrbitCamera")
+firstPersonCamera = NodePath("FirstPersonCamera")
+
+[node name="FollowCamera" type="Camera3D" parent="cameras" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.851718, 0.524001, 0, -0.524001, 0.851718, 0, 5.63167, 5.87814)
+script = ExtResource("6_41tnr")
+target = NodePath("../../player")
+
+[node name="SpringCamera" type="Camera3D" parent="cameras" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.851718, 0.524001, 0, -0.524001, 0.851718, 0, 5.63167, 5.87814)
+script = ExtResource("7_pb3m5")
+target = NodePath("../../player")
+
+[node name="OrbitCamera" type="Camera3D" parent="cameras" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.851718, 0.524001, 0, -0.524001, 0.851718, 0, 5.63167, 5.87814)
+script = ExtResource("8_05iwa")
+target = NodePath("../../player")
+
+[node name="FirstPersonCamera" type="Camera3D" parent="cameras" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("9_y8y8l")
+target = NodePath("../../player")
+
+[node name="StaticCamera" type="Camera3D" parent="cameras"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 50, 0)
